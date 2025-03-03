@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/jobs", jobRoutes);
-app.use("/api/jobs", ApplicationRoutes);
+app.use("/api/application", ApplicationRoutes);
 console.log(ApplicationRoutes)
 app.use("/api/payment", paymentRoutes);
 // app.use('/api/upload', uploadRoutes);

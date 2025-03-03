@@ -7,7 +7,8 @@ const {
   updateJob,
   deleteJob,
   getJobsByCountry,
-  getJobApplicants
+  getJobApplicants,
+  getEmployerJobs
 } = require('../Controllers/jobController');
 const authMiddleware = require('../middleware/authMiddleware');
 
@@ -18,5 +19,6 @@ router.put('/:id', authMiddleware, updateJob);
 router.delete('/:id', authMiddleware, deleteJob);
 router.get('/country/:cn', getJobsByCountry);
 router.get('/:id/applicants', authMiddleware,  getJobApplicants);
+router.get('/employer/jobs', authMiddleware, getEmployerJobs);
 
 module.exports = router;
