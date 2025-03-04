@@ -17,6 +17,31 @@ exports.applyJob = async (req, res) => {
     const job = await Job.findById(jobId);
     if (!job) return res.status(404).json({ message: "Job not found" });
 
+    // Get the user role from the authenticated user
+    const user = await User.findById(req.user.id);
+
+    // If the user is an employer, they cannot apply to their own job posts
+    if (
+      user.role === "employer" &&
+      job.employer.toString() === user._id.toString()
+    ) {
+      return res
+        .status(403)
+        .json({ message: "Employers cannot apply to their own job posts." });
+    }
+
+    // Check if the user has already applied for this job
+    const existingApplication = await Application.findOne({
+      job: jobId,
+      jobSeeker: req.user.id,
+    });
+
+    if (existingApplication) {
+      return res
+        .status(400)
+        .json({ message: "You have already applied for this job." });
+    }
+
     // Create the application
     const application = new Application({
       job: jobId,
@@ -30,7 +55,6 @@ exports.applyJob = async (req, res) => {
     await job.save();
 
     // Add the application to the user's applied jobs list
-    const user = await User.findById(req.user.id);
     user.appliedJobs.push(application._id);
     await user.save();
 
@@ -38,7 +62,7 @@ exports.applyJob = async (req, res) => {
     res.status(201).json({ message: "Applied successfully", application });
   } catch (error) {
     console.error(error); // Log the error for debugging
-    res.status(500).json({ message: "Server error12" });
+    res.status(500).json({ message: "Server error" });
   }
 };
 

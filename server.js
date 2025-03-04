@@ -6,7 +6,7 @@ const authRoutes = require("./routes/authRoutes");
 const jobRoutes = require("./routes/jobRoutes");
 const ApplicationRoutes = require("./routes/applicatoinRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
-// const uploadRoutes = require('./routes/uploadRoutes');
+const UserRoutes = require('./routes/userroute');
 
 dotenv.config();
 
@@ -33,7 +33,7 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/application", ApplicationRoutes);
 console.log(ApplicationRoutes)
 app.use("/api/payment", paymentRoutes);
-// app.use('/api/upload', uploadRoutes);
+app.use('/api/user', UserRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
