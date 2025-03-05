@@ -8,7 +8,8 @@ const {
   deleteJob,
   getJobsByCountry,
   getJobApplicants,
-  getEmployerJobs
+  getEmployerJobs,
+
 } = require('../Controllers/jobController');
 const authMiddleware = require('../middleware/authMiddleware');
 

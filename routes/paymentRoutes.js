@@ -5,5 +5,3 @@ const { checkout, paymentSuccess, paymentCancel } = require('../Controllers/paym
 router.post('/checkout', checkout);
 router.get('/success', paymentSuccess);
 router.get('/cancel', paymentCancel);
-
-module.exports = router;
